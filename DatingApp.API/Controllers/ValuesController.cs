@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;                                   // 10. Retrieving data from the Database
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;                        // 10. Retrieving data from the Database
 
 namespace DatingApp.API.Controllers
 {
+    [Authorize]                         // 34. Using the Authentication middleware
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -31,6 +33,8 @@ namespace DatingApp.API.Controllers
         }
 
         // GET api/values/5
+        // 11. Making our code asynchronous - end
+        [AllowAnonymous]                                // 34. Using the Authentication middleware
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
         {
@@ -38,10 +42,7 @@ namespace DatingApp.API.Controllers
 
             return Ok(value);
         }
-        // 11. Making our code asynchronous - end
-        // 10. Retrieving data from the Database - end
-
-
+       
 
         // POST api/values
         [HttpPost]
