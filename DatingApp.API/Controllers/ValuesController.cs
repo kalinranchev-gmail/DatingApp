@@ -25,6 +25,7 @@ namespace DatingApp.API.Controllers
         // 11. Making our code asynchronous - begin
         // GET api/values
         [HttpGet]
+        [AllowAnonymous]                                    // 43. Parent to Child Component communication using Input properties
         public async Task<IActionResult> GetValues()
         {
             var values = await _context.Values.ToListAsync();
