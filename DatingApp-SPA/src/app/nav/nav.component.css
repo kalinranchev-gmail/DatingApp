@@ -1,0 +1,4 @@
+/* 56. Adding Ngx Bootstrap to power our Bootstrap components */
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+}

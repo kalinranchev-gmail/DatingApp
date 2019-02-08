@@ -2,4 +2,11 @@
 
 /* 18. Adding Bootstrap and Font-Awesome to our Angular app */
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+/* 57. Bringing some color to our app with a theme from Bootswatch */
+@import '../node_modules/bootswatch/dist/united/bootstrap.min.css';
+
 @import 'https://use.fontawesome.com/releases/v5.7.1/css/all.css';
+/* 53. Wrapping 3rd party libraries as an Angular service */
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+

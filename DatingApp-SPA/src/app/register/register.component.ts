@@ -2,6 +2,8 @@
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 // 45. Adding the register method to the Auth Service
 import { AuthService } from '../_services/Auth.service';
+// 53. Wrapping 3rd party libraries as an Angular service
+import { AlertifyService } from '../_services/alertify.service';
 
 
 @Component({
@@ -17,7 +19,8 @@ export class RegisterComponent implements OnInit {
   model: any = {};
 
   // 45. Adding the register method to the Auth Service
-  constructor(private authService: AuthService) { }
+  // constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
@@ -25,16 +28,22 @@ export class RegisterComponent implements OnInit {
   // 45. Adding the register method to the Auth Service
   register() {
     this.authService.register(this.model).subscribe(() => {
-      console.log('registration successful');
+      // console.log('registration successful');
+      // 53. Wrapping 3rd party libraries as an Angular service
+      this.alertify.success('registration successful');
     }, error => {
-      console.log(error);
+      // console.log(error);
+      // 53. Wrapping 3rd party libraries as an Angular service
+      this.alertify.error(error);
     });
   }
 
    cancel() {
     // 44. Component Communication Child to Parent using Output properties
     this.cancelRegister.emit(false);
-    console.log('cancelled');
+    // console.log('cancelled');
+    // 53. Wrapping 3rd party libraries as an Angular service
+    this.alertify.message('cancelled');
   }
 
 
