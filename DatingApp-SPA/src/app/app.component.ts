@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // 54. Using the Angular JWT library to improve token handling
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthService } from './_services/Auth.service';
+import { AuthService } from './_services/auth.service';
 
 @Component({
   selector: 'app-root',

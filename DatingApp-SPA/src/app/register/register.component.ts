@@ -1,7 +1,7 @@
 // 42. Adding a component so users can Register to our site
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 // 45. Adding the register method to the Auth Service
-import { AuthService } from '../_services/Auth.service';
+import { AuthService } from '../_services/auth.service';
 // 53. Wrapping 3rd party libraries as an Angular service
 import { AlertifyService } from '../_services/alertify.service';
 

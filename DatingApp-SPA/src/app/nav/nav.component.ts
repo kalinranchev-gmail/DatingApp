@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 // 40. Injecting the Angular services in our Components
-import { AuthService } from '../_services/Auth.service';
+import { AuthService } from '../_services/auth.service';
 // 53. Wrapping 3rd party libraries as an Angular service
 import { AlertifyService } from '../_services/alertify.service';
+// 62. Using routing in our components
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -17,7 +19,9 @@ export class NavComponent implements OnInit {
   // 40. Injecting the Angular services in our Components
   // constructor(private authService: AuthService) { }
   // 53. Wrapping 3rd party libraries as an Angular service
-  constructor(public authService: AuthService, private alertify: AlertifyService) { }
+  // constructor(public authService: AuthService, private alertify: AlertifyService) { }
+  // 62. Using routing in our components
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -26,7 +30,7 @@ export class NavComponent implements OnInit {
   // ================================================================
   // subscribe(observer?: PartialObserver<T>): Subscription;
   // subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
-    // ================================================================
+  // ================================================================
   login() {
     // 40. Injecting the Angular services in our Components
     this.authService.login(this.model).subscribe(next => {
@@ -38,6 +42,9 @@ export class NavComponent implements OnInit {
       // console.log(error);
       // 53. Wrapping 3rd party libraries as an Angular service
       this.alertify.error(error);
+      // 62. Using routing in our components
+    }, () => {
+      this.router.navigate(['/members']);
     });
   }
 
@@ -55,6 +62,8 @@ export class NavComponent implements OnInit {
     // console.log('logged out');
     // 53. Wrapping 3rd party libraries as an Angular service
     this.alertify.message('logged out');
+    // 62. Using routing in our components
+    this.router.navigate(['/home']);
   }
 
 }
