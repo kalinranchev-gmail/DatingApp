@@ -12,5 +12,8 @@ namespace DatingApp.API.Data
         
         // 23. Creating the User model
         public DbSet<User> Users { get; set; }
+        
+        // 67. Extending the User Model 
+        public DbSet<Photo> Photos { get; set; }
     }
 }
