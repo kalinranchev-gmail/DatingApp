@@ -5,12 +5,16 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 // 54. Using the Angular JWT library to improve token handling
 import { JwtHelperService } from '@auth0/angular-jwt';
+// 81. Creating another Angular service
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = 'http://localhost:5000/api/auth/';
+  // baseUrl = 'http://localhost:5000/api/auth/';
+  // 81. Creating another Angular service
+  baseUrl = environment.apiUrl + 'auth/';
   // 54. Using the Angular JWT library to improve token handling
   jwtHelper = new JwtHelperService();
   // 55. Using the Angular JWT library to decode tokens

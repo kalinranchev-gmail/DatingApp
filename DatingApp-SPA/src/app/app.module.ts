@@ -5,9 +5,15 @@ import {HttpClientModule} from '@angular/common/http';
 // 38. Introduction to Angular template forms
 import {FormsModule} from '@angular/forms';
 // 56. Adding Ngx Bootstrap to power our Bootstrap components
-import { BsDropdownModule } from 'ngx-bootstrap';
+// 89. Adding a tabbed panel for the right hand side of the Member detailed page
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 // 60. Setting up routing in Angular
 import { RouterModule } from '@angular/router';
+// 86. Using Auth0 JwtModule to send up jwt tokens automatically
+import { JwtModule } from '@auth0/angular-jwt';
+// 91. Adding a photo gallery to our application
+import { NgxGalleryModule } from 'ngx-gallery';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,13 +28,30 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 // 53. Wrapping 3rd party libraries as an Angular service
 import { AlertifyService } from './_services/alertify.service';
 // 60. Setting up routing in Angular
-import { MemberListComponent } from './member-list/member-list.component';
+// 83. Creating Member Cards to display on our Member list page
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 // 63. Protecting our routes with a route guard
 import { AuthGuard } from './_guards/auth.guard';
+// 81. Creating another Angular service
+import { UserService } from './_services/user.service';
+// 83. Creating Member Cards to display on our Member list page
+import { MemberCardComponent } from './members/member-card/member-card.component';
+// 87. Creating the Member Detailed View component class
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+// 90. Using Route Resolvers to retrieve data
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+// 90. Using Route Resolvers to retrieve data
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
+
+
+// 86. Using Auth0 JwtModule to send up jwt tokens automatically
+export function getToken() {
+   return localStorage.getItem('token');
+ }
 
 
 @NgModule({
@@ -39,7 +62,9 @@ import { AuthGuard } from './_guards/auth.guard';
       RegisterComponent,
       MemberListComponent,
       ListsComponent,
-      MessagesComponent
+      MessagesComponent,
+      MemberCardComponent,
+      MemberDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -47,13 +72,25 @@ import { AuthGuard } from './_guards/auth.guard';
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      TabsModule.forRoot(),
+      RouterModule.forRoot(appRoutes),
+      NgxGalleryModule,
+      JwtModule.forRoot({
+         config: {
+           tokenGetter: getToken,
+           whitelistedDomains: ['localhost:5000'],
+           blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+       })
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      UserService,
+      MemberDetailResolver,
+      MemberListResolver
    ],
    bootstrap: [
       AppComponent
