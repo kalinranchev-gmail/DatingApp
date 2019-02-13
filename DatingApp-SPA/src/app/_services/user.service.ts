@@ -22,15 +22,21 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+   // 86. Using Auth0 JwtModule to send up jwt tokens automatically
   getUsers(): Observable<User[]> {
-    // return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
-    // 86. Using Auth0 JwtModule to send up jwt tokens automatically
+    // return this.http.get<User[]>(this.baseUrl + 'users', httpOptions)
     return this.http.get<User[]>(this.baseUrl + 'users');
   }
 
+  // 86. Using Auth0 JwtModule to send up jwt tokens automatically
   getUser(id): Observable<User> {
     // return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
-    // 86. Using Auth0 JwtModule to send up jwt tokens automatically
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
+
+  // 99. Finishing off the Member edit component
+  updateUser(id: number, user: User) {
+    return this.http.put(this.baseUrl + 'users/' + id, user);
+  }
+
 }

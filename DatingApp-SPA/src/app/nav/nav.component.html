@@ -9,14 +9,14 @@
     <!-- 61. Setting up our links in the nav component -->
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/members']">Matches</a>
+        <a class="nav-link" [routerLink]="['/members']">Matches</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/lists']">Lists</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
-      </li>     
+      </li>
     </ul>
 
     <!-- 41. Using *ngIf to conditionally display HTML Elements -->
@@ -28,7 +28,9 @@
 
       <!-- 56. Adding Ngx Bootstrap to power our Bootstrap components -->
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" href="#">
+        <!-- <a class="dropdown-item" href="#"> -->
+        <!-- 94. Creating a Member Edit Component -->
+        <a class="dropdown-item" [routerLink]="['/member/edit']">
           <i class="fas fa-user"></i> Edit Profile</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" (click)="logout()">

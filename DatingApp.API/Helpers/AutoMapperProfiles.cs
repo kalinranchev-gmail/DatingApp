@@ -34,6 +34,9 @@ namespace DatingApp.API.Helpers
                 });
 
             CreateMap<Photo, PhotosForDetailedDto>();
+
+            // 98. Persisting the Member updates
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }

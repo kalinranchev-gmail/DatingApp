@@ -12,6 +12,12 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 // 90. Using Route Resolvers to retrieve data
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+// 94. Creating a Member Edit Component
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+// 94. Creating a Member Edit Component
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+// 97. Adding a CanDeactivate route guard
+import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 // 63. Protecting our routes with a route guard
 // 64. Protecting multiple routes with a single route guard using dummy routes
@@ -24,9 +30,11 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'members', component: MemberListComponent,
-            resolve: {users: MemberListResolver}},
+                              resolve: {users: MemberListResolver}},
             {path: 'members/:id', component: MemberDetailComponent,
-                resolve: {user: MemberDetailResolver}},
+                              resolve: {user: MemberDetailResolver}},
+            {path: 'member/edit', component: MemberEditComponent,
+                              resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChangesGuard]},
             {path: 'messages', component: MessagesComponent},
             {path: 'lists', component: ListsComponent},
         ]
