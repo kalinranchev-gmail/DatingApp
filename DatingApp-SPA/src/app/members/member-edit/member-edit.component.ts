@@ -19,6 +19,8 @@ export class MemberEditComponent implements OnInit {
   // 96. Creating the Member Edit Template part 2
   @ViewChild('editForm') editForm: NgForm;
   user: User;
+  // 116. Using BehaviorSubject to add any to any communication to our app.
+  photoUrl: string;
 
   // 97. Adding a CanDeactivate route guard
   @HostListener('window:beforeunload', ['$event'])
@@ -38,6 +40,8 @@ export class MemberEditComponent implements OnInit {
       // this.user = data['user'];
       this.user = data.user;
     });
+    // 116. Using BehaviorSubject to add any to any communication to our app.
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   // 96. Creating the Member Edit Template part 2
@@ -52,6 +56,11 @@ export class MemberEditComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  // 113. Output properties revisited.
+  updateMainPhoto(photoUrl) {
+    this.user.photoUrl = photoUrl;
   }
 
 }

@@ -19,7 +19,9 @@ namespace DatingApp.API.Data
         // 27. Creating the Login repository method
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            // var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            // 114. Adding the main photo to the Nav bar
+            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Username == username);
 
             if (user == null)
                 return null;

@@ -2,3 +2,10 @@
 .dropdown-toggle, .dropdown-item {
     cursor: pointer;
 }
+
+/* 114. Adding the main photo to the Nav bar */
+img {
+    max-height: 50px;
+    border: 2px solid white;
+    display: inline;
+}

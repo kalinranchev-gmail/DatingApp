@@ -37,6 +37,10 @@ namespace DatingApp.API.Helpers
 
             // 98. Persisting the Member updates
             CreateMap<UserForUpdateDto, User>();
+
+            // 105. Creating the Photos Controller Part 2
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }

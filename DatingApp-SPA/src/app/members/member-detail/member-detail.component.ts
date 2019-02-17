@@ -37,7 +37,7 @@ export class MemberDetailComponent implements OnInit {
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
-        preview: true
+        preview: false
       }
     ];
     this.galleryImages = this.getImages();

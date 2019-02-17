@@ -22,6 +22,14 @@
     <!-- 41. Using *ngIf to conditionally display HTML Elements -->
     <!-- 56. Adding Ngx Bootstrap to power our Bootstrap components -->
     <div *ngIf="loggedIn()" class="dropdown" dropdown>
+
+      <!-- 114. Adding the main photo to the Nav bar -->
+      <span class="mr-1">
+        <!-- <img src="{{authService.currentUser.photoUrl}}" alt=""> -->
+        <!-- 116. Using BehaviorSubject to add any to any communication to our app. -->
+        <img src="{{photoUrl}}" alt="">
+      </span>
+
       <a class="dropdown-toggle text-light" dropdownToggle>
         Welcome {{ authService.decodedToken?.unique_name | titlecase }}
       </a>

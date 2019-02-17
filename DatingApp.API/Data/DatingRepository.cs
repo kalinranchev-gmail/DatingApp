@@ -1,5 +1,6 @@
 // 72. Creating a new repository for our API
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,23 @@ namespace DatingApp.API.Data
         {
             _context.Remove(entity);
         }
+
+
+        // 105. Creating the Photos Controller Part 2 - begin
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+            return photo;
+        }
+        // 105. Creating the Photos Controller Part 2 - end
+
+        // 110. Adding the Set Main photo functionality to the API - begin
+        public async Task<Photo> GetMainPhotoForUser(int userId)
+        {
+            return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
+        }
+        // 110. Adding the Set Main photo functionality to the API - end
 
         public async Task<User> GetUser(int id)
         {

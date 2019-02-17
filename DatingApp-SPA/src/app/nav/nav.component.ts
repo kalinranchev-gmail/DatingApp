@@ -15,6 +15,8 @@ export class NavComponent implements OnInit {
 
   // 38. Introduction to Angular template forms
   model: any = {};
+  // 116. Using BehaviorSubject to add any to any communication to our app.
+  photoUrl: string;
 
   // 40. Injecting the Angular services in our Components
   // constructor(private authService: AuthService) { }
@@ -24,6 +26,8 @@ export class NavComponent implements OnInit {
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
+    // 116. Using BehaviorSubject to add any to any communication to our app.
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   // 38. Introduction to Angular template forms
@@ -59,6 +63,13 @@ export class NavComponent implements OnInit {
   // 41. Using *ngIf to conditionally display HTML Elements
   logout() {
     localStorage.removeItem('token');
+
+    // 114. Adding the main photo to the Nav bar - begin
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
+    // 114. Adding the main photo to the Nav bar - end
+
     // console.log('logged out');
     // 53. Wrapping 3rd party libraries as an Angular service
     this.alertify.message('logged out');

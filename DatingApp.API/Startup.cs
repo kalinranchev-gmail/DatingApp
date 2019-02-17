@@ -49,6 +49,9 @@ namespace DatingApp.API
             // 16. Adding CORS support to the API
             services.AddCors();
 
+            // 103. Using Cloudinary as a photo storage solution
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            
             // 75. Using AutoMapper Part 1
             services.AddAutoMapper();
 

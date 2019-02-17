@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 // 91. Adding a photo gallery to our application
 import { NgxGalleryModule } from 'ngx-gallery';
+// 108. Adding a 3rd Party File Uploader
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -51,6 +53,9 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 // 97. Adding a CanDeactivate route guard
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+// 107. Creating the Photo upload component in Angular
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+
 
 
 
@@ -71,17 +76,18 @@ export function getToken() {
       MessagesComponent,
       MemberCardComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
-      AppRoutingModule,
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
+      FileUploadModule,
       JwtModule.forRoot({
          config: {
            tokenGetter: getToken,
