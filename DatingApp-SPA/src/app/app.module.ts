@@ -17,6 +17,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 // 108. Adding a 3rd Party File Uploader
 import { FileUploadModule } from 'ng2-file-upload';
+// 133. Using a TimeAgo pipe for dates in Angular
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -79,7 +81,8 @@ export function getToken() {
       MemberCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      TimeAgoPipe
    ],
    imports: [
       BrowserModule,

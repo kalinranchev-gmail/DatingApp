@@ -32,11 +32,15 @@
           </div>
           <div>
             <strong>Last Active:</strong>
-            <p>{{user.lastActive}}</p>
+            <!-- <p>{{user.lastActive}}</p> -->
+            <!-- 133. Using a TimeAgo pipe for dates in Angular -->
+            <p>{{user.lastActive | timeAgo}}</p>
           </div>
           <div>
             <strong>Member Since:</strong>
-            <p>{{user.created}}</p>
+            <!-- <p>{{user.created}}</p> -->
+            <!-- 133. Using a TimeAgo pipe for dates in Angular -->
+            <p>{{user.created | date: 'mediumDate'}}</p>
           </div>
         </div>
 

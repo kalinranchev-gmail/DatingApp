@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;                                           // 75. Using AutoMapper Part 1
+using AutoMapper;                                               // 75. Using AutoMapper Part 1
 using DatingApp.API.Data;
 using DatingApp.API.Dtos;
+using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // 73. Creating the Users Controller
 namespace DatingApp.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]                   // 134. Using Action Filters
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
