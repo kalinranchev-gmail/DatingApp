@@ -27,7 +27,9 @@
       <span class="mr-1">
         <!-- <img src="{{authService.currentUser.photoUrl}}" alt=""> -->
         <!-- 116. Using BehaviorSubject to add any to any communication to our app. -->
-        <img src="{{photoUrl}}" alt="">
+        <!-- <img src="{{photoUrl}}" alt=""> -->
+        <!-- 130. Fixing the Photos issue for newly registered users -->
+        <img src="{{photoUrl  || '../../assets/user.png'}}" alt="">
       </span>
 
       <a class="dropdown-toggle text-light" dropdownToggle>

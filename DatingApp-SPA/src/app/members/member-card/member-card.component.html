@@ -2,7 +2,9 @@
 <div class="card mb-4">
   <div class="card-img-wrapper">
     <a [routerLink]="['/members/', user.id]">
-      <img class="card-img-top" src="{{user.photoUrl}}" alt="{{user.knownAs}}">
+      <!-- <img class="card-img-top" src="{{user.photoUrl}}" alt="{{user.knownAs}}"> -->
+      <!-- 130. Fixing the Photos issue for newly registered users -->
+      <img class="card-img-top" src="{{user.photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}">
     </a>
 
     <!-- 85. Adding animated buttons to the member cards -->

@@ -61,8 +61,13 @@ export class AuthService {
   }
 
   // 45. Adding the register method to the Auth Service
-  register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model);
+  // register(model: any) {
+  //   return this.http.post(this.baseUrl + 'register', model);
+  // }
+
+  // 129. Completing the Registration implementation
+  register(user: User) {
+    return this.http.post(this.baseUrl + 'register', user);
   }
 
   // 54. Using the Angular JWT library to improve token handling

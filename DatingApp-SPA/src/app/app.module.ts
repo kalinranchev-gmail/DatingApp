@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 // 15. Making HTTP requests in Angular
 import {HttpClientModule} from '@angular/common/http';
 // 38. Introduction to Angular template forms
-import {FormsModule} from '@angular/forms';
+// 121. Introduction to Reactive Forms in Angular
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // 56. Adding Ngx Bootstrap to power our Bootstrap components
 // 89. Adding a tabbed panel for the right hand side of the Member detailed page
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+// 127. Handling Dates in Forms
+import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 // 60. Setting up routing in Angular
 import { RouterModule } from '@angular/router';
 // 86. Using Auth0 JwtModule to send up jwt tokens automatically
@@ -83,7 +85,9 @@ export function getToken() {
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
       BsDropdownModule.forRoot(),
+      BsDatepickerModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,

@@ -54,6 +54,7 @@ namespace DatingApp.API.Controllers
         */
 
         // 30. Using DTOs (Data Transfer Objects)
+        /* 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -71,7 +72,26 @@ namespace DatingApp.API.Controllers
 
             return StatusCode(201);
         }
+        */
 
+
+        // 128. Updating the Register method in the API
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
+        {
+            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+
+            if (await _repo.UserExists(userForRegisterDto.Username))
+                return BadRequest("Username already exists");
+
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+
+            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+
+            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+
+            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, userToReturn);
+        }
 
         // 33. Creating the Login method in the API
         [HttpPost("login")]

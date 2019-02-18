@@ -41,6 +41,9 @@ namespace DatingApp.API.Helpers
             // 105. Creating the Photos Controller Part 2
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+
+            // 128. Updating the Register method in the API
+            CreateMap<UserForRegisterDto, User>();
         }
     }
 }
