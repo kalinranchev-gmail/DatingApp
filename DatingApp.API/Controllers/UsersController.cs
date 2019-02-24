@@ -30,13 +30,39 @@ namespace DatingApp.API.Controllers
             _repo = repo;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await _repo.GetUsers();
+        // [HttpGet]
+        // public async Task<IActionResult> GetUsers()
+        // {
+        //     var users = await _repo.GetUsers();
 
-            // 75. Using AutoMapper Part 1
+        //     // 75. Using AutoMapper Part 1
+        //     var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+
+        //     return Ok(usersToReturn);
+        // }
+
+        // 139. Implementing pagination in the API
+        [HttpGet]
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
+        {
+            // 142. Filtering in the API - begin
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var userFromRepo = await _repo.GetUser(currentUserId);
+
+            userParams.UserId = currentUserId;
+
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male";
+            }
+            // 142. Filtering in the API - end
+
+            var users = await _repo.GetUsers(userParams);
+
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 
             return Ok(usersToReturn);
         }

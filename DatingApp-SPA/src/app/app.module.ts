@@ -8,7 +8,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // 56. Adding Ngx Bootstrap to power our Bootstrap components
 // 89. Adding a tabbed panel for the right hand side of the Member detailed page
 // 127. Handling Dates in Forms
-import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+// 141. Using nix-bootstrap pagination module
+// 146. Adding the Sorting functionality to the SPA + , ButtonsModule }
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 // 60. Setting up routing in Angular
 import { RouterModule } from '@angular/router';
 // 86. Using Auth0 JwtModule to send up jwt tokens automatically
@@ -91,6 +93,8 @@ export function getToken() {
       ReactiveFormsModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      ButtonsModule.forRoot(),
+      PaginationModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,

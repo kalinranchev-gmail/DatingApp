@@ -1,9 +1,12 @@
 // 81. Creating another Angular service
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
+// 140. Setting up pagination in the SPA
+import { PaginatedResult } from '../_models/pagination';
+import { map } from 'rxjs/operators';
 
 // 'Authorization': 'Bearer ' + localStorage.getItem('token')
 
@@ -23,10 +26,44 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
    // 86. Using Auth0 JwtModule to send up jwt tokens automatically
-  getUsers(): Observable<User[]> {
-    // return this.http.get<User[]>(this.baseUrl + 'users', httpOptions)
-    return this.http.get<User[]>(this.baseUrl + 'users');
+  // getUsers(): Observable<User[]> {
+  //   // return this.http.get<User[]>(this.baseUrl + 'users', httpOptions)
+  //   return this.http.get<User[]>(this.baseUrl + 'users');
+  // }
+
+  // 140. Setting up pagination in the SPA
+  // 144. Adding filtering functionality to the SPA + , userParams?)
+  getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<User[]>> {
+
+    const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+
+    let params = new HttpParams();
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    // 144. Adding filtering functionality to the SPA + userParams
+    if (userParams != null) {
+      params = params.append('minAge', userParams.minAge);
+      params = params.append('maxAge', userParams.maxAge);
+      params = params.append('gender', userParams.gender);
+      // 146. Adding the Sorting functionality to the SPA
+      params = params.append('orderBy', userParams.orderBy);
+    }
+
+    return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params }).pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
   }
+
 
   // 86. Using Auth0 JwtModule to send up jwt tokens automatically
   getUser(id): Observable<User> {
