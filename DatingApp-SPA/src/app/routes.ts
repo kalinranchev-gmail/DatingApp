@@ -18,10 +18,13 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 // 97. Adding a CanDeactivate route guard
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+// 154. Creating the Lists component
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 // 63. Protecting our routes with a route guard
 // 64. Protecting multiple routes with a single route guard using dummy routes
 // 90. Using Route Resolvers to retrieve data
+// 154. Creating the Lists component + , resolve: {users: ListsResolver}},
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {
@@ -36,7 +39,8 @@ export const appRoutes: Routes = [
             {path: 'member/edit', component: MemberEditComponent,
                               resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChangesGuard]},
             {path: 'messages', component: MessagesComponent},
-            {path: 'lists', component: ListsComponent},
+            {path: 'lists', component: ListsComponent,
+                              resolve: {users: ListsResolver}},
         ]
     },
     {path: '**', redirectTo: '', pathMatch: 'full'},

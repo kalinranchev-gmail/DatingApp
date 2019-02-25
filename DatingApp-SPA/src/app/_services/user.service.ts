@@ -33,7 +33,8 @@ export class UserService {
 
   // 140. Setting up pagination in the SPA
   // 144. Adding filtering functionality to the SPA + , userParams?)
-  getUsers(page?, itemsPerPage?, userParams?): Observable<PaginatedResult<User[]>> {
+  // 154. Creating the Lists component + likesParam?)
+  getUsers(page?, itemsPerPage?, userParams?, likesParam?): Observable<PaginatedResult<User[]>> {
 
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
 
@@ -52,6 +53,16 @@ export class UserService {
       // 146. Adding the Sorting functionality to the SPA
       params = params.append('orderBy', userParams.orderBy);
     }
+
+    // 154. Creating the Lists component - begin
+    if (likesParam === 'Likers') {
+      params = params.append('Likers', 'true');
+    }
+
+    if (likesParam === 'Likees') {
+      params = params.append('Likees', 'true');
+    }
+    // 154. Creating the Lists component - end
 
     return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params }).pipe(
         map(response => {
@@ -84,6 +95,11 @@ export class UserService {
   // 118. Adding the Delete Photo functionality to the SPA
   deletePhoto(userId: number, id: number) {
     return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+  }
+
+  // 153. Adding the Send like functionality to the SPA
+  sendLike(id: number, recipientId: number) {
+    return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {});
   }
 
 }

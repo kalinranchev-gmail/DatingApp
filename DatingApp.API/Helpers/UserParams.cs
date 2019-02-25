@@ -23,5 +23,8 @@ namespace DatingApp.API.Helpers
         // 145. Sorting results in the API
         public string OrderBy { get; set; }
 
+        // 152. Retrieving the list of users liked and liked by user
+        public bool Likees { get; set; } = false;
+        public bool Likers { get; set; } = false;
     }
 }

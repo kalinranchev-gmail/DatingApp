@@ -21,7 +21,10 @@ namespace DatingApp.API.Data
          // 105. Creating the Photos Controller Part 2
          Task<Photo> GetPhoto(int id);
 
-        // 110. Adding the Set Main photo functionality to the API
+         // 110. Adding the Set Main photo functionality to the API
          Task<Photo> GetMainPhotoForUser(int userId);
+
+         // 151. Adding the Send Like functionality in the API
+         Task<Like> GetLike(int userId, int recipientId);
     }
 }

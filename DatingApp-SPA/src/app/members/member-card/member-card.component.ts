@@ -1,6 +1,10 @@
 // 83. Creating Member Cards to display on our Member list page
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/_models/user';
+// 153. Adding the Send like functionality to the SPA
+import { AuthService } from 'src/app/_services/auth.service';
+import { UserService } from 'src/app/_services/user.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
   selector: 'app-member-card',
@@ -11,9 +15,19 @@ export class MemberCardComponent implements OnInit {
   // 83. Creating Member Cards to display on our Member list page
   @Input() user: User;
 
-  constructor() { }
+  // 153. Adding the Send like functionality to the SPA
+  constructor(private authService: AuthService, private userService: UserService, private alertify: AlertifyService) { }
 
   ngOnInit() {
+  }
+
+  // 153. Adding the Send like functionality to the SPA
+  sendLike(id: number) {
+    this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(data => {
+      this.alertify.success('You have liked: ' + this.user.knownAs);
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
 }

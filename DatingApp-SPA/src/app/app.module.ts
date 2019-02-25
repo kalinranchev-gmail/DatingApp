@@ -61,6 +61,8 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 // 107. Creating the Photo upload component in Angular
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+// 154. Creating the Lists component
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 
 
@@ -116,7 +118,8 @@ export function getToken() {
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
-      PreventUnsavedChangesGuard
+      PreventUnsavedChangesGuard,
+      ListsResolver
    ],
    bootstrap: [
       AppComponent

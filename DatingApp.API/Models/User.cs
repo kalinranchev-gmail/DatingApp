@@ -25,5 +25,10 @@ namespace DatingApp.API.Models
         public string Country { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
+
+        // 150. Creating the Like entity
+        public ICollection<Like> Likers { get; set; }
+        public ICollection<Like> Likees { get; set; }
+
     }
 }
