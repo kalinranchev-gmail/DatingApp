@@ -63,6 +63,10 @@ import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.gu
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 // 154. Creating the Lists component
 import { ListsResolver } from './_resolvers/lists.resolver';
+// 163. Working with the message component in the SPA
+import { MessagesResolver } from './_resolvers/messages.resolver';
+// 165. Getting the message thread in the component
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 
 
@@ -86,7 +90,8 @@ export function getToken() {
       MemberDetailComponent,
       MemberEditComponent,
       PhotoEditorComponent,
-      TimeAgoPipe
+      TimeAgoPipe,
+      MemberMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -119,7 +124,8 @@ export function getToken() {
       MemberListResolver,
       MemberEditResolver,
       PreventUnsavedChangesGuard,
-      ListsResolver
+      ListsResolver,
+      MessagesResolver
    ],
    bootstrap: [
       AppComponent

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+// 167. Adding Query params to an Angular route + ViewChild
+import { Component, OnInit, ViewChild } from '@angular/core';
 // 87. Creating the Member Detailed View component class
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
@@ -6,6 +7,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 // 91. Adding a photo gallery to our application
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-member-detail',
@@ -13,6 +15,8 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
+  // 167. Adding Query params to an Angular route + #memberTabs
+  @ViewChild('memberTabs') memberTabs: TabsetComponent;
   // 87. Creating the Member Detailed View component class
   user: User;
   // 91. Adding a photo gallery to our application
@@ -27,6 +31,13 @@ export class MemberDetailComponent implements OnInit {
     this.route.data.subscribe(data => {
       // this.user = data['user'];
       this.user = data.user;
+    });
+
+    // 167. Adding Query params to an Angular route
+    this.route.queryParams.subscribe(params => {
+      // const selectedTab = params['tab'];
+      const selectedTab = params.tab;
+      this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
     });
 
     // 91. Adding a photo gallery to our application
@@ -77,6 +88,11 @@ export class MemberDetailComponent implements OnInit {
       });
     }
     return imageUrls;
+  }
+
+  // 167. Adding Query params to an Angular route
+  selectTab(tabId: number) {
+    this.memberTabs.tabs[tabId].active = true;
   }
 
   // 90. Using Route Resolvers to retrieve data

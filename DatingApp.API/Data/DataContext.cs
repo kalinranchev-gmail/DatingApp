@@ -19,6 +19,8 @@ namespace DatingApp.API.Data
         // 150. Creating the Like entity
         public DbSet<Like> Likes { get; set; }
 
+        // 157. Creating the Message Entity and relationships
+        public DbSet<Message> Messages { get; set; }
 
        
         // 150. Creating the Like entity
@@ -40,7 +42,19 @@ namespace DatingApp.API.Data
                 .HasOne(u => u.Liker)
                 .WithMany(u => u.Likees)
                 .HasForeignKey(u => u.LikerId)
-                .OnDelete(DeleteBehavior.Restrict);            
+                .OnDelete(DeleteBehavior.Restrict); 
+
+
+            // 157. Creating the Message Entity and relationships
+            builder.Entity<Message>()
+                .HasOne(u => u.Sender)
+                .WithMany(m => m.MessagesSent)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+                .HasOne(u => u.Recipient)
+                .WithMany(m => m.MessagesReceived)
+                .OnDelete(DeleteBehavior.Restrict);           
             
         }
 

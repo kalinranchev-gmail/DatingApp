@@ -26,6 +26,10 @@ namespace DatingApp.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
 
         // 105. Creating the Photos Controller Part 2 - begin
         public async Task<Photo> GetPhoto(int id)
@@ -141,9 +145,57 @@ namespace DatingApp.API.Data
         }
 
 
-        public async Task<bool> SaveAll()
+        // 158. Adding the repository methods for the messages
+        public async Task<Message> GetMessage(int id)
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        // 160. Adding the Repository methods for an Inbox, Outbox
+        public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
+        {
+            var messages = _context.Messages
+                .Include(u => u.Sender).ThenInclude(p => p.Photos)
+                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
+                .AsQueryable();
+
+            // 170. Adding the Delete message functionality to the API + u.RecipientDeleted == false + u.SenderDeleted == false
+            switch (messageParams.MessageContainer)
+            {
+                case "Inbox":
+                    messages = messages.Where(u => u.RecipientId == messageParams.UserId && 
+                                              u.RecipientDeleted == false);
+                    break;
+                case "Outbox":
+                    messages = messages.Where(u => u.SenderId == messageParams.UserId && 
+                                              u.SenderDeleted == false);
+                    break;
+                default:
+                    messages = messages.Where(u => u.RecipientId == messageParams.UserId && 
+                                              u.RecipientDeleted == false && u.IsRead == false);
+                    break;
+            }
+
+            messages = messages.OrderByDescending(d => d.MessageSent);
+
+            return await PagedList<Message>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
+        }
+
+        // 162. Adding the Message thread methods to the API
+         // 170. Adding the Delete message functionality to the API + && m.RecipientDeleted == false + && m.SenderDeleted == false
+        public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
+        {
+            var messages = await _context.Messages
+                .Include(u => u.Sender).ThenInclude(p => p.Photos)
+                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
+                .Where(m => (m.RecipientId == userId && m.SenderId == recipientId && m.RecipientDeleted == false)
+                            || 
+                            (m.RecipientId == recipientId && m.SenderId == userId && m.SenderDeleted == false)
+                      )
+                .OrderByDescending(m => m.MessageSent)
+                .ToListAsync();
+
+            return messages;
         }
     }
 }

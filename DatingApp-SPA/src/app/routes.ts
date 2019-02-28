@@ -20,11 +20,13 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 // 154. Creating the Lists component
 import { ListsResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 
 // 63. Protecting our routes with a route guard
 // 64. Protecting multiple routes with a single route guard using dummy routes
 // 90. Using Route Resolvers to retrieve data
-// 154. Creating the Lists component + , resolve: {users: ListsResolver}},
+// 154. Creating the Lists component +  resolve: {users: ListsResolver}},
+// 163. Working with the message component in the SPA + resolve: {messages: MessagesResolver}},
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {
@@ -38,7 +40,8 @@ export const appRoutes: Routes = [
                               resolve: {user: MemberDetailResolver}},
             {path: 'member/edit', component: MemberEditComponent,
                               resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChangesGuard]},
-            {path: 'messages', component: MessagesComponent},
+            {path: 'messages', component: MessagesComponent,
+                              resolve: {messages: MessagesResolver}},
             {path: 'lists', component: ListsComponent,
                               resolve: {users: ListsResolver}},
         ]

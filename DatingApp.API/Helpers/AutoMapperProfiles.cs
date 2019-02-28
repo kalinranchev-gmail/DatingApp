@@ -44,6 +44,16 @@ namespace DatingApp.API.Helpers
 
             // 128. Updating the Register method in the API
             CreateMap<UserForRegisterDto, User>();
+
+            // 158. Adding the repository methods for the messages
+            CreateMap<MessageForCreationDto, Message>().ReverseMap();
+
+            // 161. Creating the Message Controller
+             CreateMap<Message, MessageToReturnDto>()
+                .ForMember(m => m.SenderPhotoUrl, opt => opt
+                    .MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(m => m.RecipientPhotoUrl, opt => opt
+                    .MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url));
         }
     }
 }
